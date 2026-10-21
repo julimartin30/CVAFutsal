@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CDE Virgen de Atocha FESD</title>
+  <meta name="description" content="Resultados, clasificación, plantilla y estadísticas del CDE Virgen de Atocha FESD.">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header class="hero">
+    <div class="wrap">
+      <p class="eyebrow">Fútbol sala · <span id="competicion">Competición</span></p>
+      <h1 id="nombre-equipo">CDE Virgen de Atocha FESD</h1>
+      <p class="sub" id="temporada"></p>
+      <nav>
+        <a href="#resumen">Resumen</a>
+        <a href="#partidos">Partidos</a>
+        <a href="#clasificacion">Clasificación</a>
+        <a href="#plantilla">Plantilla</a>
+        <a href="#goleadores">Estadísticas</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section id="resumen">
+      <h2>Resumen de la temporada</h2>
+      <div class="cards" id="cards"></div>
+      <div class="two">
+        <div class="panel"><h3>Próximo partido</h3><div id="proximo"></div></div>
+        <div class="panel"><h3>Último resultado</h3><div id="ultimo"></div></div>
+      </div>
+    </section>
+
+    <section id="partidos">
+      <h2>Calendario y resultados</h2>
+      <label class="check"><input type="checkbox" id="ver-todos"> Ver también los partidos de los demás equipos</label>
+      <div class="table-scroll">
+        <table id="tabla-partidos">
+          <thead><tr><th>Jor.</th><th>Fecha</th><th>Local</th><th>Res.</th><th>Visitante</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="clasificacion">
+      <h2>Clasificación</h2>
+      <div class="table-scroll">
+        <table id="tabla-clasificacion">
+          <thead><tr><th>#</th><th>Equipo</th><th>PJ</th><th>G</th><th>E</th><th>P</th><th>GF</th><th>GC</th><th>DG</th><th>Pts</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="plantilla">
+      <h2>Plantilla</h2>
+      <div class="grid" id="jugadores"></div>
+    </section>
+
+    <section id="goleadores">
+      <h2>Estadísticas de jugadores</h2>
+      <div class="table-scroll">
+        <table id="tabla-stats">
+          <thead><tr>
+            <th data-sort="nombre">Jugador</th>
+            <th data-sort="partidos">PJ</th>
+            <th data-sort="goles">Goles</th>
+            <th data-sort="asistencias">Asist.</th>
+            <th data-sort="amarillas">Amar.</th>
+            <th data-sort="rojas">Rojas</th>
+          </tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <p class="hint">Pulsa en una columna para ordenar.</p>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <p>Datos de la competición según la <a href="https://www.rffm.es" target="_blank" rel="noopener">Real Federación de Fútbol de Madrid</a>. Web no oficial.</p>
+      <p id="actualizado"></p>
+    </div>
+  </footer>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

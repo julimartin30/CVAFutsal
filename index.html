@@ -5,7 +5,86 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>CDE Virgen de Atocha FESD</title>
   <meta name="description" content="Resultados, clasificación, plantilla y estadísticas del CDE Virgen de Atocha FESD.">
-  <link rel="stylesheet" href="css/styles.css">
+  <style>
+:root {
+  --bg: #f6f7f9;
+  --surface: #ffffff;
+  --text: #1b1f27;
+  --muted: #5d6675;
+  --line: #e3e6eb;
+  --accent: #da191e;
+  --accent-dark: #a80f13;
+  --win: #1f8a4c;
+  --draw: #b7791f;
+  --loss: #c0392b;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #12151b;
+    --surface: #1b2029;
+    --text: #eef0f4;
+    --muted: #9aa3b2;
+    --line: #2a303b;
+  }
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+}
+.wrap { max-width: 1000px; margin: 0 auto; padding: 0 16px; }
+.hero {
+  background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+  color: #fff;
+  padding: 40px 0 0;
+}
+.eyebrow { margin: 0; text-transform: uppercase; letter-spacing: .08em; font-size: .8rem; opacity: .85; }
+h1 { margin: 6px 0 4px; font-size: clamp(1.8rem, 5vw, 2.8rem); line-height: 1.15; }
+.sub { margin: 0 0 20px; opacity: .9; }
+nav { display: flex; gap: 4px; flex-wrap: wrap; padding-bottom: 0; }
+nav a {
+  color: #fff; text-decoration: none; padding: 10px 14px;
+  border-radius: 8px 8px 0 0; font-weight: 600; font-size: .95rem;
+}
+nav a:hover { background: rgba(255,255,255,.18); }
+section { padding: 28px 0 8px; scroll-margin-top: 8px; }
+h2 { margin: 0 0 14px; font-size: 1.4rem; }
+h3 { margin: 0 0 8px; font-size: 1rem; color: var(--muted); font-weight: 600; }
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px; margin-bottom: 16px; }
+.card, .panel, .player {
+  background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px;
+}
+.card .num { font-size: 1.8rem; font-weight: 700; }
+.card .lbl { color: var(--muted); font-size: .85rem; }
+.two { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; }
+.match-line { font-weight: 600; }
+.match-meta { color: var(--muted); font-size: .9rem; }
+.table-scroll { overflow-x: auto; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; }
+table { width: 100%; border-collapse: collapse; font-size: .95rem; }
+th, td { padding: 10px 12px; text-align: center; border-bottom: 1px solid var(--line); white-space: nowrap; }
+th { color: var(--muted); font-size: .8rem; text-transform: uppercase; letter-spacing: .04em; }
+td:nth-child(2), th:nth-child(2) { text-align: left; }
+#tabla-partidos td:nth-child(3), #tabla-partidos th:nth-child(3) { text-align: right; }
+#tabla-partidos td:nth-child(5), #tabla-partidos th:nth-child(5) { text-align: left; }
+#tabla-stats td:first-child, #tabla-stats th:first-child { text-align: left; }
+#tabla-stats th[data-sort] { cursor: pointer; }
+tr:last-child td { border-bottom: none; }
+tr.nuestro { background: color-mix(in srgb, var(--accent) 10%, transparent); font-weight: 600; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 12px; }
+.player .dorsal { font-size: 1.6rem; font-weight: 800; color: var(--accent); }
+.player .pos { color: var(--muted); font-size: .85rem; }
+.pill { display: inline-block; min-width: 26px; padding: 1px 8px; border-radius: 99px; color: #fff; font-weight: 700; font-size: .8rem; }
+.pill.G { background: var(--win); } .pill.E { background: var(--draw); } .pill.P { background: var(--loss); }
+.check { display: block; margin: 0 0 10px; color: var(--muted); font-size: .9rem; }
+.hint { color: var(--muted); font-size: .85rem; }
+.vacio { color: var(--muted); font-style: italic; }
+footer { margin-top: 40px; padding: 20px 0 40px; color: var(--muted); font-size: .85rem; border-top: 1px solid var(--line); }
+footer a { color: var(--accent); }
+
+</style>
 </head>
 <body>
   <header class="hero">
@@ -85,6 +164,2273 @@
     </div>
   </footer>
 
-  <script src="js/app.js"></script>
+  <!-- DATOS: edita solo este bloque para actualizar resultados, plantilla y estadísticas -->
+<script>
+const DATOS = {
+ "equipo": {
+  "nombre": "CDE Virgen de Atocha FESD",
+  "competicion": "Primera Juvenil FS",
+  "temporada": "Temporada 2026-2027",
+  "grupo": "Grupo 3",
+  "actualizado": "2026-10-21",
+  "fuente": "https://www.rffm.es/fichaequipo/28022265",
+  "equipos": [
+   "A.D. COLLADO VILLALBA \"B\"",
+   "A.D. COLEGIO JOYFE \"A\"",
+   "C.D.E. EL VALLE \"B\"",
+   "AGRUPACION DEPORTIVA COLEGIO CALASANCIO",
+   "C.D.E. LAS MINAS",
+   "C.D. LOPE DE VEGA \"C\"",
+   "CDE C.F.S. EUROSIRIS",
+   "CDE FUSION FUTBOL SALA SAN FERNANDO \"C\"",
+   "AGRUPACION AUTO-ESCUELA SIMANCAS",
+   "CLUB UNION DEPORTIVA LOECHES \"B\"",
+   "FUTSAL SANSE \"B\"",
+   "CDE VIRGEN DE ATOCHA FESD",
+   "CLUB AGUSTINIANO",
+   "DEPORTIVO CALDEIRO"
+  ]
+ },
+ "partidos": [
+  {
+   "jornada": 1,
+   "fecha": "2026-10-04",
+   "hora": "17:00",
+   "local": "A.D. COLLADO VILLALBA \"B\"",
+   "visitante": "C.D.E. EL VALLE \"B\"",
+   "golesLocal": 3,
+   "golesVisitante": 4,
+   "pabellon": "COLLADO VILLALBA - COL. ROSA CHACEL (futbol sala)",
+   "acta": null
+  },
+  {
+   "jornada": 1,
+   "fecha": "2026-10-04",
+   "hora": "12:00",
+   "local": "CDE VIRGEN DE ATOCHA FESD",
+   "visitante": "C.D.E. LAS MINAS",
+   "golesLocal": 1,
+   "golesVisitante": 1,
+   "pabellon": "COL. VIRGEN DE ATOCHA (futbol sala)",
+   "acta": null
+  },
+  {
+   "jornada": 1,
+   "fecha": "2026-10-04",
+   "hora": "12:00",
+   "local": "CLUB UNION DEPORTIVA LOECHES \"B\"",
+   "visitante": "CDE C.F.S. EUROSIRIS",
+   "golesLocal": 2,
+   "golesVisitante": 6,
+   "pabellon": "LOECHES - P.M. JOSE RODRIGUEZ (futbol sala)",
+   "acta": null
+  },
+  {
+   "jornada": 1,
+   "fecha": "2026-10-03",
+   "hora": "17:00",
+   "local": "CDE FUSION FUTBOL SALA SAN FERNANDO \"C\"",
+   "visitante": "AGRUPACION AUTO-ESCUELA SIMANCAS",
+   "golesLocal": 0,
+   "golesVisitante": 9,
+   "pabellon": "SAN FERNANDO - P.M. JUSTO GOMEZ SALTO (futbol sala)",
+   "acta": null
+  },
+  {
+   "jornada": 1,
+   "fecha": "2026-10-04",
+   "hora": "17:00",
+   "local": "C.D. LOPE DE VEGA \"C\"",
+   "visitante": "FUTSAL SANSE \"B\"",
+   "golesLocal": 5,
+   "golesVisitante": 1,
+   "pabellon": "ALCALA - P.M. EMPERADOR FERNANDO (futbol sala)",
+   "acta": null
+  },
+  {
+   "jornada": 1,
+   "fecha": "2026-10-04",
+   "hora": "10:00",
+   "local": "AGRUPACION DEPORTIVA COLEGIO CALASANCIO",
+   "visitante": "CLUB AGUSTINIANO",
+   "golesLocal": 0,
+   "golesVisitante": 6,
+   "pabellon": "COL. CALASANCIO (futbol sala)",
+   "acta": null
+  },
+  {
+   "jornada": 1,
+   "fecha": "2026-10-03",
+   "hora": "17:30",
+   "local": "DEPORTIVO CALDEIRO",
+   "visitante": "A.D. COLEGIO JOYFE \"A\"",
+   "golesLocal": 3,
+   "golesVisitante": 0,
+   "pabellon": "COL. CALDEIRO (futbol sala)",
+   "acta": null
+  },
+  {
+   "jornada": 2,
+   "fecha": "2026-10-18",
+   "hora": "17:15",
+   "local": "C.D.E. EL VALLE \"B\"",
+   "visitante": "DEPORTIVO CALDEIRO",
+   "golesLocal": 3,
+   "golesVisitante": 2,
+   "pabellon": "POLID. COLEGIO EL VALLE SANCHINARRO (futbol sala)",
+   "acta": null
+  },
+  {
+   "jornada": 2,
+   "fecha": "2026-10-17",
+   "hora": "14:00",
+   "local": "C.D.E. LAS MINAS",
+   "visitante": "A.D. COLLADO VILLALBA \"B\"",
+   "golesLocal": 5,
+   "golesVisitante": 1,
+   "pabellon": "P.M. SAN BLAS (futbol sala)",
+   "acta": null
+  },
+  {
+   "jornada": 2,
+   "fecha": "2026-10-17",
+   "hora": "12:00",
+   "local": "CDE C.F.S. EUROSIRIS",
+   "visitante": "CDE VIRGEN DE ATOCHA FESD",
+   "golesLocal": 2,
+   "golesVisitante": 1,
+   "pabellon": "P.M. SAN BLAS (futbol sala)",
+   "acta": "https://www.rffm.es/acta-partido/5711840?temporada=22&competicion=26738228&grupo=28122301"
+  },
+  {
+   "jornada": 2,
+   "fecha": "2026-10-18",
+   "hora": "11:00",
+   "local": "AGRUPACION AUTO-ESCUELA SIMANCAS",
+   "visitante": "CLUB UNION DEPORTIVA LOECHES \"B\"",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": "IDB MEDIO AMPOSTA (futbol sala)",
+   "acta": null
+  },
+  {
+   "jornada": 2,
+   "fecha": "2026-10-18",
+   "hora": "12:30",
+   "local": "FUTSAL SANSE \"B\"",
+   "visitante": "CDE FUSION FUTBOL SALA SAN FERNANDO \"C\"",
+   "golesLocal": 4,
+   "golesVisitante": 0,
+   "pabellon": "S.S. REYES - P.M. VALVANERA (futbol sala)",
+   "acta": null
+  },
+  {
+   "jornada": 2,
+   "fecha": "2026-10-17",
+   "hora": "16:30",
+   "local": "CLUB AGUSTINIANO",
+   "visitante": "C.D. LOPE DE VEGA \"C\"",
+   "golesLocal": 7,
+   "golesVisitante": 0,
+   "pabellon": "COL. AGUSTINIANO (futbol sala)",
+   "acta": null
+  },
+  {
+   "jornada": 2,
+   "fecha": "2026-10-17",
+   "hora": "13:30",
+   "local": "A.D. COLEGIO JOYFE \"A\"",
+   "visitante": "AGRUPACION DEPORTIVA COLEGIO CALASANCIO",
+   "golesLocal": 3,
+   "golesVisitante": 0,
+   "pabellon": "P.M. MARGOT MOLES (futbol sala)",
+   "acta": null
+  },
+  {
+   "jornada": 3,
+   "fecha": "2026-10-24",
+   "hora": null,
+   "local": "C.D.E. EL VALLE \"B\"",
+   "visitante": "C.D.E. LAS MINAS",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 3,
+   "fecha": "2026-10-24",
+   "hora": null,
+   "local": "A.D. COLLADO VILLALBA \"B\"",
+   "visitante": "CDE C.F.S. EUROSIRIS",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 3,
+   "fecha": "2026-10-24",
+   "hora": null,
+   "local": "CDE VIRGEN DE ATOCHA FESD",
+   "visitante": "AGRUPACION AUTO-ESCUELA SIMANCAS",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 3,
+   "fecha": "2026-10-24",
+   "hora": null,
+   "local": "CLUB UNION DEPORTIVA LOECHES \"B\"",
+   "visitante": "FUTSAL SANSE \"B\"",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 3,
+   "fecha": "2026-10-24",
+   "hora": null,
+   "local": "CDE FUSION FUTBOL SALA SAN FERNANDO \"C\"",
+   "visitante": "CLUB AGUSTINIANO",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 3,
+   "fecha": "2026-10-24",
+   "hora": null,
+   "local": "C.D. LOPE DE VEGA \"C\"",
+   "visitante": "A.D. COLEGIO JOYFE \"A\"",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 3,
+   "fecha": "2026-10-24",
+   "hora": null,
+   "local": "DEPORTIVO CALDEIRO",
+   "visitante": "AGRUPACION DEPORTIVA COLEGIO CALASANCIO",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 4,
+   "fecha": "2026-11-07",
+   "hora": null,
+   "local": "C.D.E. LAS MINAS",
+   "visitante": "DEPORTIVO CALDEIRO",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 4,
+   "fecha": "2026-11-07",
+   "hora": null,
+   "local": "CDE C.F.S. EUROSIRIS",
+   "visitante": "C.D.E. EL VALLE \"B\"",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 4,
+   "fecha": "2026-11-07",
+   "hora": null,
+   "local": "AGRUPACION AUTO-ESCUELA SIMANCAS",
+   "visitante": "A.D. COLLADO VILLALBA \"B\"",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 4,
+   "fecha": "2026-11-07",
+   "hora": null,
+   "local": "FUTSAL SANSE \"B\"",
+   "visitante": "CDE VIRGEN DE ATOCHA FESD",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 4,
+   "fecha": "2026-11-07",
+   "hora": null,
+   "local": "CLUB AGUSTINIANO",
+   "visitante": "CLUB UNION DEPORTIVA LOECHES \"B\"",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 4,
+   "fecha": "2026-11-07",
+   "hora": null,
+   "local": "A.D. COLEGIO JOYFE \"A\"",
+   "visitante": "CDE FUSION FUTBOL SALA SAN FERNANDO \"C\"",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 4,
+   "fecha": "2026-11-07",
+   "hora": null,
+   "local": "AGRUPACION DEPORTIVA COLEGIO CALASANCIO",
+   "visitante": "C.D. LOPE DE VEGA \"C\"",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 5,
+   "fecha": "2026-11-14",
+   "hora": null,
+   "local": "C.D.E. LAS MINAS",
+   "visitante": "CDE C.F.S. EUROSIRIS",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 5,
+   "fecha": "2026-11-14",
+   "hora": null,
+   "local": "C.D.E. EL VALLE \"B\"",
+   "visitante": "AGRUPACION AUTO-ESCUELA SIMANCAS",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 5,
+   "fecha": "2026-11-14",
+   "hora": null,
+   "local": "A.D. COLLADO VILLALBA \"B\"",
+   "visitante": "FUTSAL SANSE \"B\"",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 5,
+   "fecha": "2026-11-14",
+   "hora": null,
+   "local": "CDE VIRGEN DE ATOCHA FESD",
+   "visitante": "CLUB AGUSTINIANO",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 5,
+   "fecha": "2026-11-14",
+   "hora": null,
+   "local": "CLUB UNION DEPORTIVA LOECHES \"B\"",
+   "visitante": "A.D. COLEGIO JOYFE \"A\"",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 5,
+   "fecha": "2026-11-14",
+   "hora": null,
+   "local": "CDE FUSION FUTBOL SALA SAN FERNANDO \"C\"",
+   "visitante": "AGRUPACION DEPORTIVA COLEGIO CALASANCIO",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 5,
+   "fecha": "2026-11-14",
+   "hora": null,
+   "local": "DEPORTIVO CALDEIRO",
+   "visitante": "C.D. LOPE DE VEGA \"C\"",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 6,
+   "fecha": "2026-11-21",
+   "hora": null,
+   "local": "CDE C.F.S. EUROSIRIS",
+   "visitante": "DEPORTIVO CALDEIRO",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 6,
+   "fecha": "2026-11-21",
+   "hora": null,
+   "local": "AGRUPACION AUTO-ESCUELA SIMANCAS",
+   "visitante": "C.D.E. LAS MINAS",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 6,
+   "fecha": "2026-11-21",
+   "hora": null,
+   "local": "FUTSAL SANSE \"B\"",
+   "visitante": "C.D.E. EL VALLE \"B\"",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 6,
+   "fecha": "2026-11-21",
+   "hora": null,
+   "local": "CLUB AGUSTINIANO",
+   "visitante": "A.D. COLLADO VILLALBA \"B\"",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 6,
+   "fecha": "2026-11-21",
+   "hora": null,
+   "local": "A.D. COLEGIO JOYFE \"A\"",
+   "visitante": "CDE VIRGEN DE ATOCHA FESD",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 6,
+   "fecha": "2026-11-21",
+   "hora": null,
+   "local": "AGRUPACION DEPORTIVA COLEGIO CALASANCIO",
+   "visitante": "CLUB UNION DEPORTIVA LOECHES \"B\"",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 6,
+   "fecha": "2026-11-21",
+   "hora": null,
+   "local": "C.D. LOPE DE VEGA \"C\"",
+   "visitante": "CDE FUSION FUTBOL SALA SAN FERNANDO \"C\"",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 7,
+   "fecha": "2026-11-28",
+   "hora": null,
+   "local": "CDE C.F.S. EUROSIRIS",
+   "visitante": "AGRUPACION AUTO-ESCUELA SIMANCAS",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 7,
+   "fecha": "2026-11-28",
+   "hora": null,
+   "local": "C.D.E. LAS MINAS",
+   "visitante": "FUTSAL SANSE \"B\"",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 7,
+   "fecha": "2026-11-28",
+   "hora": null,
+   "local": "C.D.E. EL VALLE \"B\"",
+   "visitante": "CLUB AGUSTINIANO",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 7,
+   "fecha": "2026-11-28",
+   "hora": null,
+   "local": "A.D. COLLADO VILLALBA \"B\"",
+   "visitante": "A.D. COLEGIO JOYFE \"A\"",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 7,
+   "fecha": "2026-11-28",
+   "hora": null,
+   "local": "CDE VIRGEN DE ATOCHA FESD",
+   "visitante": "AGRUPACION DEPORTIVA COLEGIO CALASANCIO",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 7,
+   "fecha": "2026-11-28",
+   "hora": null,
+   "local": "CLUB UNION DEPORTIVA LOECHES \"B\"",
+   "visitante": "C.D. LOPE DE VEGA \"C\"",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 7,
+   "fecha": "2026-11-28",
+   "hora": null,
+   "local": "DEPORTIVO CALDEIRO",
+   "visitante": "CDE FUSION FUTBOL SALA SAN FERNANDO \"C\"",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 8,
+   "fecha": "2026-12-12",
+   "hora": null,
+   "local": "AGRUPACION AUTO-ESCUELA SIMANCAS",
+   "visitante": "DEPORTIVO CALDEIRO",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 8,
+   "fecha": "2026-12-12",
+   "hora": null,
+   "local": "FUTSAL SANSE \"B\"",
+   "visitante": "CDE C.F.S. EUROSIRIS",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 8,
+   "fecha": "2026-12-12",
+   "hora": null,
+   "local": "CLUB AGUSTINIANO",
+   "visitante": "C.D.E. LAS MINAS",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 8,
+   "fecha": "2026-12-12",
+   "hora": null,
+   "local": "A.D. COLEGIO JOYFE \"A\"",
+   "visitante": "C.D.E. EL VALLE \"B\"",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 8,
+   "fecha": "2026-12-12",
+   "hora": null,
+   "local": "AGRUPACION DEPORTIVA COLEGIO CALASANCIO",
+   "visitante": "A.D. COLLADO VILLALBA \"B\"",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 8,
+   "fecha": "2026-12-12",
+   "hora": null,
+   "local": "C.D. LOPE DE VEGA \"C\"",
+   "visitante": "CDE VIRGEN DE ATOCHA FESD",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 8,
+   "fecha": "2026-12-12",
+   "hora": null,
+   "local": "CDE FUSION FUTBOL SALA SAN FERNANDO \"C\"",
+   "visitante": "CLUB UNION DEPORTIVA LOECHES \"B\"",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 9,
+   "fecha": "2026-12-19",
+   "hora": null,
+   "local": "AGRUPACION AUTO-ESCUELA SIMANCAS",
+   "visitante": "FUTSAL SANSE \"B\"",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 9,
+   "fecha": "2026-12-19",
+   "hora": null,
+   "local": "CDE C.F.S. EUROSIRIS",
+   "visitante": "CLUB AGUSTINIANO",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 9,
+   "fecha": "2026-12-19",
+   "hora": null,
+   "local": "C.D.E. LAS MINAS",
+   "visitante": "A.D. COLEGIO JOYFE \"A\"",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 9,
+   "fecha": "2026-12-19",
+   "hora": null,
+   "local": "C.D.E. EL VALLE \"B\"",
+   "visitante": "AGRUPACION DEPORTIVA COLEGIO CALASANCIO",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 9,
+   "fecha": "2026-12-19",
+   "hora": null,
+   "local": "A.D. COLLADO VILLALBA \"B\"",
+   "visitante": "C.D. LOPE DE VEGA \"C\"",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 9,
+   "fecha": "2026-12-19",
+   "hora": null,
+   "local": "CDE VIRGEN DE ATOCHA FESD",
+   "visitante": "CDE FUSION FUTBOL SALA SAN FERNANDO \"C\"",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 9,
+   "fecha": "2026-12-19",
+   "hora": null,
+   "local": "DEPORTIVO CALDEIRO",
+   "visitante": "CLUB UNION DEPORTIVA LOECHES \"B\"",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 10,
+   "fecha": "2027-01-09",
+   "hora": null,
+   "local": "FUTSAL SANSE \"B\"",
+   "visitante": "DEPORTIVO CALDEIRO",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 10,
+   "fecha": "2027-01-09",
+   "hora": null,
+   "local": "CLUB AGUSTINIANO",
+   "visitante": "AGRUPACION AUTO-ESCUELA SIMANCAS",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 10,
+   "fecha": "2027-01-09",
+   "hora": null,
+   "local": "A.D. COLEGIO JOYFE \"A\"",
+   "visitante": "CDE C.F.S. EUROSIRIS",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 10,
+   "fecha": "2027-01-09",
+   "hora": null,
+   "local": "AGRUPACION DEPORTIVA COLEGIO CALASANCIO",
+   "visitante": "C.D.E. LAS MINAS",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 10,
+   "fecha": "2027-01-09",
+   "hora": null,
+   "local": "C.D. LOPE DE VEGA \"C\"",
+   "visitante": "C.D.E. EL VALLE \"B\"",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 10,
+   "fecha": "2027-01-09",
+   "hora": null,
+   "local": "CDE FUSION FUTBOL SALA SAN FERNANDO \"C\"",
+   "visitante": "A.D. COLLADO VILLALBA \"B\"",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 10,
+   "fecha": "2027-01-09",
+   "hora": null,
+   "local": "CLUB UNION DEPORTIVA LOECHES \"B\"",
+   "visitante": "CDE VIRGEN DE ATOCHA FESD",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 11,
+   "fecha": "2027-01-23",
+   "hora": null,
+   "local": "FUTSAL SANSE \"B\"",
+   "visitante": "CLUB AGUSTINIANO",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 11,
+   "fecha": "2027-01-23",
+   "hora": null,
+   "local": "AGRUPACION AUTO-ESCUELA SIMANCAS",
+   "visitante": "A.D. COLEGIO JOYFE \"A\"",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 11,
+   "fecha": "2027-01-23",
+   "hora": null,
+   "local": "CDE C.F.S. EUROSIRIS",
+   "visitante": "AGRUPACION DEPORTIVA COLEGIO CALASANCIO",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 11,
+   "fecha": "2027-01-23",
+   "hora": null,
+   "local": "C.D.E. LAS MINAS",
+   "visitante": "C.D. LOPE DE VEGA \"C\"",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 11,
+   "fecha": "2027-01-23",
+   "hora": null,
+   "local": "C.D.E. EL VALLE \"B\"",
+   "visitante": "CDE FUSION FUTBOL SALA SAN FERNANDO \"C\"",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 11,
+   "fecha": "2027-01-23",
+   "hora": null,
+   "local": "A.D. COLLADO VILLALBA \"B\"",
+   "visitante": "CLUB UNION DEPORTIVA LOECHES \"B\"",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 11,
+   "fecha": "2027-01-23",
+   "hora": null,
+   "local": "DEPORTIVO CALDEIRO",
+   "visitante": "CDE VIRGEN DE ATOCHA FESD",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 12,
+   "fecha": "2027-01-30",
+   "hora": null,
+   "local": "DEPORTIVO CALDEIRO",
+   "visitante": "CLUB AGUSTINIANO",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 12,
+   "fecha": "2027-01-30",
+   "hora": null,
+   "local": "A.D. COLEGIO JOYFE \"A\"",
+   "visitante": "FUTSAL SANSE \"B\"",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 12,
+   "fecha": "2027-01-30",
+   "hora": null,
+   "local": "AGRUPACION DEPORTIVA COLEGIO CALASANCIO",
+   "visitante": "AGRUPACION AUTO-ESCUELA SIMANCAS",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 12,
+   "fecha": "2027-01-30",
+   "hora": null,
+   "local": "C.D. LOPE DE VEGA \"C\"",
+   "visitante": "CDE C.F.S. EUROSIRIS",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 12,
+   "fecha": "2027-01-30",
+   "hora": null,
+   "local": "CDE FUSION FUTBOL SALA SAN FERNANDO \"C\"",
+   "visitante": "C.D.E. LAS MINAS",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 12,
+   "fecha": "2027-01-30",
+   "hora": null,
+   "local": "CLUB UNION DEPORTIVA LOECHES \"B\"",
+   "visitante": "C.D.E. EL VALLE \"B\"",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 12,
+   "fecha": "2027-01-30",
+   "hora": null,
+   "local": "CDE VIRGEN DE ATOCHA FESD",
+   "visitante": "A.D. COLLADO VILLALBA \"B\"",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 13,
+   "fecha": "2027-02-06",
+   "hora": null,
+   "local": "CLUB AGUSTINIANO",
+   "visitante": "A.D. COLEGIO JOYFE \"A\"",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 13,
+   "fecha": "2027-02-06",
+   "hora": null,
+   "local": "FUTSAL SANSE \"B\"",
+   "visitante": "AGRUPACION DEPORTIVA COLEGIO CALASANCIO",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 13,
+   "fecha": "2027-02-06",
+   "hora": null,
+   "local": "AGRUPACION AUTO-ESCUELA SIMANCAS",
+   "visitante": "C.D. LOPE DE VEGA \"C\"",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 13,
+   "fecha": "2027-02-06",
+   "hora": null,
+   "local": "CDE C.F.S. EUROSIRIS",
+   "visitante": "CDE FUSION FUTBOL SALA SAN FERNANDO \"C\"",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 13,
+   "fecha": "2027-02-06",
+   "hora": null,
+   "local": "C.D.E. LAS MINAS",
+   "visitante": "CLUB UNION DEPORTIVA LOECHES \"B\"",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 13,
+   "fecha": "2027-02-06",
+   "hora": null,
+   "local": "C.D.E. EL VALLE \"B\"",
+   "visitante": "CDE VIRGEN DE ATOCHA FESD",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 13,
+   "fecha": "2027-02-06",
+   "hora": null,
+   "local": "A.D. COLLADO VILLALBA \"B\"",
+   "visitante": "DEPORTIVO CALDEIRO",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 14,
+   "fecha": "2027-02-13",
+   "hora": null,
+   "local": "C.D.E. EL VALLE \"B\"",
+   "visitante": "A.D. COLLADO VILLALBA \"B\"",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 14,
+   "fecha": "2027-02-13",
+   "hora": null,
+   "local": "C.D.E. LAS MINAS",
+   "visitante": "CDE VIRGEN DE ATOCHA FESD",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 14,
+   "fecha": "2027-02-13",
+   "hora": null,
+   "local": "CDE C.F.S. EUROSIRIS",
+   "visitante": "CLUB UNION DEPORTIVA LOECHES \"B\"",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 14,
+   "fecha": "2027-02-13",
+   "hora": null,
+   "local": "AGRUPACION AUTO-ESCUELA SIMANCAS",
+   "visitante": "CDE FUSION FUTBOL SALA SAN FERNANDO \"C\"",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 14,
+   "fecha": "2027-02-13",
+   "hora": null,
+   "local": "FUTSAL SANSE \"B\"",
+   "visitante": "C.D. LOPE DE VEGA \"C\"",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 14,
+   "fecha": "2027-02-13",
+   "hora": null,
+   "local": "CLUB AGUSTINIANO",
+   "visitante": "AGRUPACION DEPORTIVA COLEGIO CALASANCIO",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 14,
+   "fecha": "2027-02-13",
+   "hora": null,
+   "local": "A.D. COLEGIO JOYFE \"A\"",
+   "visitante": "DEPORTIVO CALDEIRO",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 15,
+   "fecha": "2027-02-20",
+   "hora": null,
+   "local": "DEPORTIVO CALDEIRO",
+   "visitante": "C.D.E. EL VALLE \"B\"",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 15,
+   "fecha": "2027-02-20",
+   "hora": null,
+   "local": "A.D. COLLADO VILLALBA \"B\"",
+   "visitante": "C.D.E. LAS MINAS",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 15,
+   "fecha": "2027-02-20",
+   "hora": null,
+   "local": "CDE VIRGEN DE ATOCHA FESD",
+   "visitante": "CDE C.F.S. EUROSIRIS",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 15,
+   "fecha": "2027-02-20",
+   "hora": null,
+   "local": "CLUB UNION DEPORTIVA LOECHES \"B\"",
+   "visitante": "AGRUPACION AUTO-ESCUELA SIMANCAS",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 15,
+   "fecha": "2027-02-20",
+   "hora": null,
+   "local": "CDE FUSION FUTBOL SALA SAN FERNANDO \"C\"",
+   "visitante": "FUTSAL SANSE \"B\"",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 15,
+   "fecha": "2027-02-20",
+   "hora": null,
+   "local": "C.D. LOPE DE VEGA \"C\"",
+   "visitante": "CLUB AGUSTINIANO",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 15,
+   "fecha": "2027-02-20",
+   "hora": null,
+   "local": "AGRUPACION DEPORTIVA COLEGIO CALASANCIO",
+   "visitante": "A.D. COLEGIO JOYFE \"A\"",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 16,
+   "fecha": "2027-02-27",
+   "hora": null,
+   "local": "C.D.E. LAS MINAS",
+   "visitante": "C.D.E. EL VALLE \"B\"",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 16,
+   "fecha": "2027-02-27",
+   "hora": null,
+   "local": "CDE C.F.S. EUROSIRIS",
+   "visitante": "A.D. COLLADO VILLALBA \"B\"",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 16,
+   "fecha": "2027-02-27",
+   "hora": null,
+   "local": "AGRUPACION AUTO-ESCUELA SIMANCAS",
+   "visitante": "CDE VIRGEN DE ATOCHA FESD",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 16,
+   "fecha": "2027-02-27",
+   "hora": null,
+   "local": "FUTSAL SANSE \"B\"",
+   "visitante": "CLUB UNION DEPORTIVA LOECHES \"B\"",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 16,
+   "fecha": "2027-02-27",
+   "hora": null,
+   "local": "CLUB AGUSTINIANO",
+   "visitante": "CDE FUSION FUTBOL SALA SAN FERNANDO \"C\"",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 16,
+   "fecha": "2027-02-27",
+   "hora": null,
+   "local": "A.D. COLEGIO JOYFE \"A\"",
+   "visitante": "C.D. LOPE DE VEGA \"C\"",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 16,
+   "fecha": "2027-02-27",
+   "hora": null,
+   "local": "AGRUPACION DEPORTIVA COLEGIO CALASANCIO",
+   "visitante": "DEPORTIVO CALDEIRO",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 17,
+   "fecha": "2027-03-06",
+   "hora": null,
+   "local": "DEPORTIVO CALDEIRO",
+   "visitante": "C.D.E. LAS MINAS",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 17,
+   "fecha": "2027-03-06",
+   "hora": null,
+   "local": "C.D.E. EL VALLE \"B\"",
+   "visitante": "CDE C.F.S. EUROSIRIS",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 17,
+   "fecha": "2027-03-06",
+   "hora": null,
+   "local": "A.D. COLLADO VILLALBA \"B\"",
+   "visitante": "AGRUPACION AUTO-ESCUELA SIMANCAS",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 17,
+   "fecha": "2027-03-06",
+   "hora": null,
+   "local": "CDE VIRGEN DE ATOCHA FESD",
+   "visitante": "FUTSAL SANSE \"B\"",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 17,
+   "fecha": "2027-03-06",
+   "hora": null,
+   "local": "CLUB UNION DEPORTIVA LOECHES \"B\"",
+   "visitante": "CLUB AGUSTINIANO",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 17,
+   "fecha": "2027-03-06",
+   "hora": null,
+   "local": "CDE FUSION FUTBOL SALA SAN FERNANDO \"C\"",
+   "visitante": "A.D. COLEGIO JOYFE \"A\"",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 17,
+   "fecha": "2027-03-06",
+   "hora": null,
+   "local": "C.D. LOPE DE VEGA \"C\"",
+   "visitante": "AGRUPACION DEPORTIVA COLEGIO CALASANCIO",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 18,
+   "fecha": "2027-03-13",
+   "hora": null,
+   "local": "CDE C.F.S. EUROSIRIS",
+   "visitante": "C.D.E. LAS MINAS",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 18,
+   "fecha": "2027-03-13",
+   "hora": null,
+   "local": "AGRUPACION AUTO-ESCUELA SIMANCAS",
+   "visitante": "C.D.E. EL VALLE \"B\"",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 18,
+   "fecha": "2027-03-13",
+   "hora": null,
+   "local": "FUTSAL SANSE \"B\"",
+   "visitante": "A.D. COLLADO VILLALBA \"B\"",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 18,
+   "fecha": "2027-03-13",
+   "hora": null,
+   "local": "CLUB AGUSTINIANO",
+   "visitante": "CDE VIRGEN DE ATOCHA FESD",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 18,
+   "fecha": "2027-03-13",
+   "hora": null,
+   "local": "A.D. COLEGIO JOYFE \"A\"",
+   "visitante": "CLUB UNION DEPORTIVA LOECHES \"B\"",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 18,
+   "fecha": "2027-03-13",
+   "hora": null,
+   "local": "AGRUPACION DEPORTIVA COLEGIO CALASANCIO",
+   "visitante": "CDE FUSION FUTBOL SALA SAN FERNANDO \"C\"",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 18,
+   "fecha": "2027-03-13",
+   "hora": null,
+   "local": "C.D. LOPE DE VEGA \"C\"",
+   "visitante": "DEPORTIVO CALDEIRO",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 19,
+   "fecha": "2027-03-20",
+   "hora": null,
+   "local": "DEPORTIVO CALDEIRO",
+   "visitante": "CDE C.F.S. EUROSIRIS",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 19,
+   "fecha": "2027-03-20",
+   "hora": null,
+   "local": "C.D.E. LAS MINAS",
+   "visitante": "AGRUPACION AUTO-ESCUELA SIMANCAS",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 19,
+   "fecha": "2027-03-20",
+   "hora": null,
+   "local": "C.D.E. EL VALLE \"B\"",
+   "visitante": "FUTSAL SANSE \"B\"",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 19,
+   "fecha": "2027-03-20",
+   "hora": null,
+   "local": "A.D. COLLADO VILLALBA \"B\"",
+   "visitante": "CLUB AGUSTINIANO",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 19,
+   "fecha": "2027-03-20",
+   "hora": null,
+   "local": "CDE VIRGEN DE ATOCHA FESD",
+   "visitante": "A.D. COLEGIO JOYFE \"A\"",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 19,
+   "fecha": "2027-03-20",
+   "hora": null,
+   "local": "CLUB UNION DEPORTIVA LOECHES \"B\"",
+   "visitante": "AGRUPACION DEPORTIVA COLEGIO CALASANCIO",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 19,
+   "fecha": "2027-03-20",
+   "hora": null,
+   "local": "CDE FUSION FUTBOL SALA SAN FERNANDO \"C\"",
+   "visitante": "C.D. LOPE DE VEGA \"C\"",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 20,
+   "fecha": "2027-04-03",
+   "hora": null,
+   "local": "AGRUPACION AUTO-ESCUELA SIMANCAS",
+   "visitante": "CDE C.F.S. EUROSIRIS",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 20,
+   "fecha": "2027-04-03",
+   "hora": null,
+   "local": "FUTSAL SANSE \"B\"",
+   "visitante": "C.D.E. LAS MINAS",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 20,
+   "fecha": "2027-04-03",
+   "hora": null,
+   "local": "CLUB AGUSTINIANO",
+   "visitante": "C.D.E. EL VALLE \"B\"",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 20,
+   "fecha": "2027-04-03",
+   "hora": null,
+   "local": "A.D. COLEGIO JOYFE \"A\"",
+   "visitante": "A.D. COLLADO VILLALBA \"B\"",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 20,
+   "fecha": "2027-04-03",
+   "hora": null,
+   "local": "AGRUPACION DEPORTIVA COLEGIO CALASANCIO",
+   "visitante": "CDE VIRGEN DE ATOCHA FESD",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 20,
+   "fecha": "2027-04-03",
+   "hora": null,
+   "local": "C.D. LOPE DE VEGA \"C\"",
+   "visitante": "CLUB UNION DEPORTIVA LOECHES \"B\"",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 20,
+   "fecha": "2027-04-03",
+   "hora": null,
+   "local": "CDE FUSION FUTBOL SALA SAN FERNANDO \"C\"",
+   "visitante": "DEPORTIVO CALDEIRO",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 21,
+   "fecha": "2027-04-10",
+   "hora": null,
+   "local": "DEPORTIVO CALDEIRO",
+   "visitante": "AGRUPACION AUTO-ESCUELA SIMANCAS",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 21,
+   "fecha": "2027-04-10",
+   "hora": null,
+   "local": "CDE C.F.S. EUROSIRIS",
+   "visitante": "FUTSAL SANSE \"B\"",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 21,
+   "fecha": "2027-04-10",
+   "hora": null,
+   "local": "C.D.E. LAS MINAS",
+   "visitante": "CLUB AGUSTINIANO",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 21,
+   "fecha": "2027-04-10",
+   "hora": null,
+   "local": "C.D.E. EL VALLE \"B\"",
+   "visitante": "A.D. COLEGIO JOYFE \"A\"",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 21,
+   "fecha": "2027-04-10",
+   "hora": null,
+   "local": "A.D. COLLADO VILLALBA \"B\"",
+   "visitante": "AGRUPACION DEPORTIVA COLEGIO CALASANCIO",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 21,
+   "fecha": "2027-04-10",
+   "hora": null,
+   "local": "CDE VIRGEN DE ATOCHA FESD",
+   "visitante": "C.D. LOPE DE VEGA \"C\"",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 21,
+   "fecha": "2027-04-10",
+   "hora": null,
+   "local": "CLUB UNION DEPORTIVA LOECHES \"B\"",
+   "visitante": "CDE FUSION FUTBOL SALA SAN FERNANDO \"C\"",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 22,
+   "fecha": "2027-04-17",
+   "hora": null,
+   "local": "FUTSAL SANSE \"B\"",
+   "visitante": "AGRUPACION AUTO-ESCUELA SIMANCAS",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 22,
+   "fecha": "2027-04-17",
+   "hora": null,
+   "local": "CLUB AGUSTINIANO",
+   "visitante": "CDE C.F.S. EUROSIRIS",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 22,
+   "fecha": "2027-04-17",
+   "hora": null,
+   "local": "A.D. COLEGIO JOYFE \"A\"",
+   "visitante": "C.D.E. LAS MINAS",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 22,
+   "fecha": "2027-04-17",
+   "hora": null,
+   "local": "AGRUPACION DEPORTIVA COLEGIO CALASANCIO",
+   "visitante": "C.D.E. EL VALLE \"B\"",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 22,
+   "fecha": "2027-04-17",
+   "hora": null,
+   "local": "C.D. LOPE DE VEGA \"C\"",
+   "visitante": "A.D. COLLADO VILLALBA \"B\"",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 22,
+   "fecha": "2027-04-17",
+   "hora": null,
+   "local": "CDE FUSION FUTBOL SALA SAN FERNANDO \"C\"",
+   "visitante": "CDE VIRGEN DE ATOCHA FESD",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 22,
+   "fecha": "2027-04-17",
+   "hora": null,
+   "local": "CLUB UNION DEPORTIVA LOECHES \"B\"",
+   "visitante": "DEPORTIVO CALDEIRO",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 23,
+   "fecha": "2027-04-24",
+   "hora": null,
+   "local": "DEPORTIVO CALDEIRO",
+   "visitante": "FUTSAL SANSE \"B\"",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 23,
+   "fecha": "2027-04-24",
+   "hora": null,
+   "local": "AGRUPACION AUTO-ESCUELA SIMANCAS",
+   "visitante": "CLUB AGUSTINIANO",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 23,
+   "fecha": "2027-04-24",
+   "hora": null,
+   "local": "CDE C.F.S. EUROSIRIS",
+   "visitante": "A.D. COLEGIO JOYFE \"A\"",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 23,
+   "fecha": "2027-04-24",
+   "hora": null,
+   "local": "C.D.E. LAS MINAS",
+   "visitante": "AGRUPACION DEPORTIVA COLEGIO CALASANCIO",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 23,
+   "fecha": "2027-04-24",
+   "hora": null,
+   "local": "C.D.E. EL VALLE \"B\"",
+   "visitante": "C.D. LOPE DE VEGA \"C\"",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 23,
+   "fecha": "2027-04-24",
+   "hora": null,
+   "local": "A.D. COLLADO VILLALBA \"B\"",
+   "visitante": "CDE FUSION FUTBOL SALA SAN FERNANDO \"C\"",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 23,
+   "fecha": "2027-04-24",
+   "hora": null,
+   "local": "CDE VIRGEN DE ATOCHA FESD",
+   "visitante": "CLUB UNION DEPORTIVA LOECHES \"B\"",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 24,
+   "fecha": "2027-05-08",
+   "hora": null,
+   "local": "CLUB AGUSTINIANO",
+   "visitante": "FUTSAL SANSE \"B\"",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 24,
+   "fecha": "2027-05-08",
+   "hora": null,
+   "local": "A.D. COLEGIO JOYFE \"A\"",
+   "visitante": "AGRUPACION AUTO-ESCUELA SIMANCAS",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 24,
+   "fecha": "2027-05-08",
+   "hora": null,
+   "local": "AGRUPACION DEPORTIVA COLEGIO CALASANCIO",
+   "visitante": "CDE C.F.S. EUROSIRIS",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 24,
+   "fecha": "2027-05-08",
+   "hora": null,
+   "local": "C.D. LOPE DE VEGA \"C\"",
+   "visitante": "C.D.E. LAS MINAS",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 24,
+   "fecha": "2027-05-08",
+   "hora": null,
+   "local": "CDE FUSION FUTBOL SALA SAN FERNANDO \"C\"",
+   "visitante": "C.D.E. EL VALLE \"B\"",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 24,
+   "fecha": "2027-05-08",
+   "hora": null,
+   "local": "CLUB UNION DEPORTIVA LOECHES \"B\"",
+   "visitante": "A.D. COLLADO VILLALBA \"B\"",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 24,
+   "fecha": "2027-05-08",
+   "hora": null,
+   "local": "CDE VIRGEN DE ATOCHA FESD",
+   "visitante": "DEPORTIVO CALDEIRO",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 25,
+   "fecha": "2027-05-22",
+   "hora": null,
+   "local": "CLUB AGUSTINIANO",
+   "visitante": "DEPORTIVO CALDEIRO",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 25,
+   "fecha": "2027-05-22",
+   "hora": null,
+   "local": "FUTSAL SANSE \"B\"",
+   "visitante": "A.D. COLEGIO JOYFE \"A\"",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 25,
+   "fecha": "2027-05-22",
+   "hora": null,
+   "local": "AGRUPACION AUTO-ESCUELA SIMANCAS",
+   "visitante": "AGRUPACION DEPORTIVA COLEGIO CALASANCIO",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 25,
+   "fecha": "2027-05-22",
+   "hora": null,
+   "local": "CDE C.F.S. EUROSIRIS",
+   "visitante": "C.D. LOPE DE VEGA \"C\"",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 25,
+   "fecha": "2027-05-22",
+   "hora": null,
+   "local": "C.D.E. LAS MINAS",
+   "visitante": "CDE FUSION FUTBOL SALA SAN FERNANDO \"C\"",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 25,
+   "fecha": "2027-05-22",
+   "hora": null,
+   "local": "C.D.E. EL VALLE \"B\"",
+   "visitante": "CLUB UNION DEPORTIVA LOECHES \"B\"",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 25,
+   "fecha": "2027-05-22",
+   "hora": null,
+   "local": "A.D. COLLADO VILLALBA \"B\"",
+   "visitante": "CDE VIRGEN DE ATOCHA FESD",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 26,
+   "fecha": "2027-06-05",
+   "hora": null,
+   "local": "A.D. COLEGIO JOYFE \"A\"",
+   "visitante": "CLUB AGUSTINIANO",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 26,
+   "fecha": "2027-06-05",
+   "hora": null,
+   "local": "AGRUPACION DEPORTIVA COLEGIO CALASANCIO",
+   "visitante": "FUTSAL SANSE \"B\"",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 26,
+   "fecha": "2027-06-05",
+   "hora": null,
+   "local": "C.D. LOPE DE VEGA \"C\"",
+   "visitante": "AGRUPACION AUTO-ESCUELA SIMANCAS",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 26,
+   "fecha": "2027-06-05",
+   "hora": null,
+   "local": "CDE FUSION FUTBOL SALA SAN FERNANDO \"C\"",
+   "visitante": "CDE C.F.S. EUROSIRIS",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 26,
+   "fecha": "2027-06-05",
+   "hora": null,
+   "local": "CLUB UNION DEPORTIVA LOECHES \"B\"",
+   "visitante": "C.D.E. LAS MINAS",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 26,
+   "fecha": "2027-06-05",
+   "hora": null,
+   "local": "CDE VIRGEN DE ATOCHA FESD",
+   "visitante": "C.D.E. EL VALLE \"B\"",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  },
+  {
+   "jornada": 26,
+   "fecha": "2027-06-05",
+   "hora": null,
+   "local": "DEPORTIVO CALDEIRO",
+   "visitante": "A.D. COLLADO VILLALBA \"B\"",
+   "golesLocal": null,
+   "golesVisitante": null,
+   "pabellon": null,
+   "acta": null
+  }
+ ],
+ "jugadores": [
+  {
+   "dorsal": 1,
+   "nombre": "Ángel Gil Beltrán",
+   "posicion": "Portero",
+   "partidos": null,
+   "goles": null,
+   "asistencias": null,
+   "amarillas": null,
+   "rojas": null
+  },
+  {
+   "dorsal": 4,
+   "nombre": "Adrián Barrera Muñoz",
+   "posicion": "Ala",
+   "partidos": null,
+   "goles": null,
+   "asistencias": null,
+   "amarillas": null,
+   "rojas": null
+  },
+  {
+   "dorsal": 6,
+   "nombre": "Ignacio Giraldo Fernández",
+   "posicion": "Ala-cierre",
+   "partidos": null,
+   "goles": null,
+   "asistencias": null,
+   "amarillas": null,
+   "rojas": null
+  },
+  {
+   "dorsal": 7,
+   "nombre": "Alfonso Gutierrez Alfaro",
+   "posicion": "Ala",
+   "partidos": null,
+   "goles": null,
+   "asistencias": null,
+   "amarillas": null,
+   "rojas": null
+  },
+  {
+   "dorsal": 8,
+   "nombre": "Francisco Guzman Puente",
+   "posicion": "Ala",
+   "partidos": null,
+   "goles": null,
+   "asistencias": null,
+   "amarillas": null,
+   "rojas": null
+  },
+  {
+   "dorsal": 9,
+   "nombre": "Alonso Llopis Garcia",
+   "posicion": "Pívot",
+   "partidos": null,
+   "goles": null,
+   "asistencias": null,
+   "amarillas": null,
+   "rojas": null
+  },
+  {
+   "dorsal": 10,
+   "nombre": "Rodrigo Monte Martinez",
+   "posicion": "Cierre",
+   "partidos": null,
+   "goles": null,
+   "asistencias": null,
+   "amarillas": null,
+   "rojas": null
+  },
+  {
+   "dorsal": 11,
+   "nombre": "David Belda Villegas",
+   "posicion": "Ala",
+   "partidos": null,
+   "goles": null,
+   "asistencias": null,
+   "amarillas": null,
+   "rojas": null
+  },
+  {
+   "dorsal": 13,
+   "nombre": "Alejandro González Piquero",
+   "posicion": "Ala",
+   "partidos": null,
+   "goles": null,
+   "asistencias": null,
+   "amarillas": null,
+   "rojas": null
+  },
+  {
+   "dorsal": 20,
+   "nombre": "Daniel López Arellano",
+   "posicion": "Pívot",
+   "partidos": null,
+   "goles": null,
+   "asistencias": null,
+   "amarillas": null,
+   "rojas": null
+  }
+ ]
+};
+</script>
+<script>
+const NOMBRE = "CDE VIRGEN DE ATOCHA FESD";
+const $ = (s) => document.querySelector(s);
+const esc = (t) => String(t ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const esNuestro = (n) => String(n || "").toUpperCase().includes("ATOCHA");
+const fmtFecha = (f) => {
+  if (!f) return "—";
+  const d = new Date(f + "T12:00:00");
+  return isNaN(d) ? f : d.toLocaleDateString("es-ES", { day: "2-digit", month: "short", year: "numeric" });
+};
+
+async function cargar(nombre) {
+  return DATOS[nombre];
+}
+
+function resultadoNuestro(p) {
+  if (p.golesLocal == null || p.golesVisitante == null) return null;
+  const local = esNuestro(p.local);
+  const gf = local ? p.golesLocal : p.golesVisitante;
+  const gc = local ? p.golesVisitante : p.golesLocal;
+  return { gf, gc, r: gf > gc ? "G" : gf < gc ? "P" : "E" };
+}
+
+function pintarResumen(partidos) {
+  const jugados = partidos.filter((p) => resultadoNuestro(p));
+  let g = 0, e = 0, pe = 0, gf = 0, gc = 0;
+  jugados.forEach((p) => {
+    const x = resultadoNuestro(p);
+    gf += x.gf; gc += x.gc;
+    if (x.r === "G") g++; else if (x.r === "E") e++; else pe++;
+  });
+  const items = [
+    [jugados.length, "Jugados"], [g, "Ganados"], [e, "Empatados"], [pe, "Perdidos"],
+    [gf, "Goles a favor"], [gc, "Goles en contra"], [g * 3 + e, "Puntos"],
+  ];
+  $("#cards").innerHTML = items.map(([n, l]) => `<div class="card"><div class="num">${n}</div><div class="lbl">${l}</div></div>`).join("");
+
+  const linea = (p) => `<div class="match-line">${esc(p.local)} ${p.golesLocal ?? ""}${p.golesLocal != null ? " - " + p.golesVisitante : " vs"} ${esc(p.visitante)}</div>
+    <div class="match-meta">Jornada ${esc(p.jornada)} · ${fmtFecha(p.fecha)}${p.hora ? " · " + esc(p.hora) : ""}${p.pabellon ? "<br>" + esc(p.pabellon) : ""}</div>`;
+  const prox = partidos.find((p) => !resultadoNuestro(p));
+  const ult = [...jugados].reverse()[0];
+  $("#proximo").innerHTML = prox ? linea(prox) : '<span class="vacio">Sin partidos pendientes.</span>';
+  $("#ultimo").innerHTML = ult ? linea(ult) : '<span class="vacio">Aún no hay resultados.</span>';
+}
+
+function pintarPartidos(partidos, verTodos) {
+  const lista = verTodos ? partidos : partidos.filter((p) => esNuestro(p.local) || esNuestro(p.visitante));
+  $("#tabla-partidos tbody").innerHTML = lista.map((p) => {
+    const x = resultadoNuestro(p);
+    const res = p.golesLocal != null ? `${p.golesLocal} - ${p.golesVisitante}` : (p.hora || "—");
+    const acta = p.acta ? ` <a href="${esc(p.acta)}" target="_blank" rel="noopener" title="Ver acta">📋</a>` : "";
+    return `<tr class="${esNuestro(p.local) || esNuestro(p.visitante) ? "nuestro" : ""}">
+      <td>${esc(p.jornada)}</td><td>${fmtFecha(p.fecha)}</td><td>${esc(p.local)}</td>
+      <td>${x ? `<span class="pill ${x.r}">${res}</span>` : res}${acta}</td><td>${esc(p.visitante)}</td></tr>`;
+  }).join("");
+}
+
+// La clasificación se calcula a partir de los resultados de partidos.json.
+// Orden: puntos, diferencia de goles, goles a favor (el desempate oficial puede diferir).
+function calcularClasificacion(partidos, equipos) {
+  const t = {};
+  equipos.forEach((e) => (t[e] = { equipo: e, pj: 0, g: 0, e: 0, p: 0, gf: 0, gc: 0, pts: 0 }));
+  partidos.forEach((m) => {
+    if (m.golesLocal == null || m.golesVisitante == null || !t[m.local] || !t[m.visitante]) return;
+    const a = t[m.local], b = t[m.visitante];
+    a.pj++; b.pj++;
+    a.gf += m.golesLocal; a.gc += m.golesVisitante;
+    b.gf += m.golesVisitante; b.gc += m.golesLocal;
+    if (m.golesLocal > m.golesVisitante) { a.g++; a.pts += 3; b.p++; }
+    else if (m.golesLocal < m.golesVisitante) { b.g++; b.pts += 3; a.p++; }
+    else { a.e++; b.e++; a.pts++; b.pts++; }
+  });
+  return Object.values(t).sort((x, y) =>
+    y.pts - x.pts || (y.gf - y.gc) - (x.gf - x.gc) || y.gf - x.gf || x.equipo.localeCompare(y.equipo));
+}
+
+function pintarClasificacion(c) {
+  $("#tabla-clasificacion tbody").innerHTML = c.map((t, i) => `<tr class="${esNuestro(t.equipo) ? "nuestro" : ""}">
+    <td>${i + 1}</td><td>${esc(t.equipo)}</td><td>${t.pj}</td><td>${t.g}</td><td>${t.e}</td><td>${t.p}</td>
+    <td>${t.gf}</td><td>${t.gc}</td><td>${t.gf - t.gc}</td><td><strong>${t.pts}</strong></td></tr>`).join("");
+}
+
+function pintarJugadores(js) {
+  $("#jugadores").innerHTML = js.map((j) => `<div class="player">
+    <div class="dorsal">${j.dorsal != null ? "#" + esc(j.dorsal) : ""}</div>
+    <div><strong>${esc(j.nombre)}</strong></div><div class="pos">${esc(j.posicion || "")}</div></div>`).join("");
+}
+
+let orden = { campo: "goles", asc: false };
+function pintarStats(js) {
+  const datos = [...js].sort((a, b) => {
+    const va = a[orden.campo], vb = b[orden.campo];
+    const c = typeof va === "string" ? va.localeCompare(vb) : (va ?? 0) - (vb ?? 0);
+    return orden.asc ? c : -c;
+  });
+  $("#tabla-stats tbody").innerHTML = datos.map((j) => `<tr><td>${esc(j.nombre)}</td><td>${j.partidos ?? "—"}</td>
+    <td>${j.goles ?? "—"}</td><td>${j.asistencias ?? "—"}</td><td>${j.amarillas ?? "—"}</td><td>${j.rojas ?? "—"}</td></tr>`).join("");
+}
+
+async function init() {
+  try {
+    const [equipo, partidos, jugadores] = await Promise.all([
+      cargar("equipo"), cargar("partidos"), cargar("jugadores"),
+    ]);
+    const clasif = calcularClasificacion(partidos, equipo.equipos || []);
+    $("#nombre-equipo").textContent = equipo.nombre || NOMBRE;
+    $("#competicion").textContent = equipo.competicion || "Competición";
+    $("#temporada").textContent = [equipo.temporada, equipo.grupo].filter(Boolean).join(" · ");
+    $("#actualizado").textContent = equipo.actualizado ? `Última actualización: ${fmtFecha(equipo.actualizado)}` : "";
+    document.title = equipo.nombre || NOMBRE;
+
+    const miosPartidos = partidos.filter((p) => esNuestro(p.local) || esNuestro(p.visitante));
+    pintarResumen(miosPartidos);
+    pintarPartidos(partidos, false);
+    $("#ver-todos").addEventListener("change", (e) => pintarPartidos(partidos, e.target.checked));
+    pintarClasificacion(clasif);
+    pintarJugadores(jugadores);
+    pintarStats(jugadores);
+
+    document.querySelectorAll("#tabla-stats th[data-sort]").forEach((th) =>
+      th.addEventListener("click", () => {
+        const campo = th.dataset.sort;
+        orden = { campo, asc: orden.campo === campo ? !orden.asc : campo === "nombre" };
+        pintarStats(jugadores);
+      }));
+  } catch (err) {
+    document.querySelector("main").insertAdjacentHTML("afterbegin",
+      `<p class="panel">No se han podido cargar los datos (${esc(err.message)}). Si abres el archivo directamente, usa un servidor local o GitHub Pages.</p>`);
+  }
+}
+init();
+
+</script>
 </body>
 </html>
